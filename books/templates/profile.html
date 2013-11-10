@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+    {% block content %}
+    	<p><a href="{% url 'logout' %}">Logout</a>
+    	   <a href="{% url 'searchform' %}">Go to search</a>
+    	   <a href="{% url 'timeline' %}">My events</a>
+    	</p>
+	    <p>The profile of user <strong>{{ user }}</strong> goes here.</p>
+	    <p>Current user follows {{ actors|length }} book{{ actors|pluralize }}:</p>
+	    {% if actors %}
+	    	{% for actor in actors %}
+	    		<a href="{% url 'detail' actor.pk %}">{{ actor.title }}</a>
+	    	{% endfor %}
+	    {% endif %}
+	    
+    {% endblock %}

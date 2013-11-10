@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+    {% block content %}
+		<p><a href="{% url 'searchform' %}">Back to search</a></p>
+			
+		<p>You searched by {{ info }}: <strong>{{ query }}</strong></p>
+
+		{% if books %}
+		    <p>Found {{ books|length }} book{{ books|pluralize }}.</p>
+		    <ul>
+		        {% for book in books %}
+		        <li><a href="{% url 'detail' book.pk %}">{{ book.title }}</a></li>
+		        {% endfor %}
+		    </ul>
+		{% else %}
+		    <p>No books matched your search criteria.</p>
+		{% endif %}
+	{% endblock %}	

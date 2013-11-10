@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search a book</title>
+</head>
+<style>
+	#sidebar
+	{
+		background-color:rgb(220,220,220);
+		height:700px;
+		width:17%;
+		float:left;
+	}
+	#content
+	{
+		background-color:rgb(255,255,255);
+		height:700px;
+		width:65%;
+		float:left;		
+		margin: 5px;
+	}
+</style>
+<body>
+	
+	<div id="sidebar">
+    </div>
+
+    <div id="content">
+    	{% block content %}{% endblock %}
+	</div>
+
+    <div id="sidebar">
+	</div>
+   
+</body>
+</html>

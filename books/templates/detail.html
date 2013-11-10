@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+    {% block content %}
+		<p><a href="{% url 'searchform' %}">Back to search</a>
+		   <a href="{% url 'follow' book.pk %}">Follow this book</a>
+		   <a href="{% url 'unfollow' book.pk %}">Unfollow this book</a>
+		</p>
+
+		{% if message %}
+			<p>{{ message }}</p>
+		{% endif %}
+		<p>Description of the chosen book</p>
+
+		<table border="0">
+			<tr>
+			<th>Title of the book</th>
+			<th>Author(s)</th>
+			<th>Publisher</th>
+			<th>Publication date</th>
+			</tr>
+			<tr>
+			<td>{{ book.title }}</td>
+			<td>
+			{% for author in book.authors.all %}
+			    {{ author.first_name }} {{ author.last_name }}<br>
+			{% endfor %}
+			</td>
+			<td>{{ book.publisher.name }}</td>
+			<td>{{ book.publication_date }}</td>
+			</tr>
+		</table> 
+
+		<p>Number of the reviews for the current book: {{ book.number_of_reviews }}</p>
+		{% if book.number_of_reviews %}
+			{% for review in book.review_set.all %}
+				<p> <strong>{{ review.name_of_reviewer }} wrote:</strong><br>
+					{{ review.text }}
+				</p>
+			{% endfor %}
+		{% endif %}
+
+		{% if error_message %}
+			<p style="color:red;">{{ error_message }}</p>			
+		{% endif %}
+
+		<form action="{% url 'detail' book.pk %}" method="post">
+			{% csrf_token %}	
+			{{ form.as_p }}
+		<input type="submit" value="Submit"><input type="reset"> 
+		</form>
+    {% endblock %}

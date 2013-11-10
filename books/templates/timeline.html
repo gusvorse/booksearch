@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+    {% block content %}
+    	<p><a href="{% url 'logout' %}">Logout</a>  
+    	   <a href="{% url 'searchform' %}">Go to search</a>
+    	   <a href="{% url 'profile' username %}">Profile</a>
+    	</p>
+	    
+	    <p>What happed recently?</p>
+	    {% if actions %}
+	    	{% for action in actions %}
+	    		<em>{{ action }}</em><br>
+	    		{% if action.data %}
+	    			<p style="color: rgb(0,200,200);">{{action.data.reviewer}} wrote {{action.data.text}}</p><br>
+	    		{% endif %}
+	    	{% endfor %}
+	    {% else %}
+	    	Nothing much.
+	    {% endif %}
+	    
+    {% endblock %}

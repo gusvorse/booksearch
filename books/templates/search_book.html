@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+    {% block content %}
+    	{% if error %}
+    		{{ error }}
+    	{% endif %}
+    	<p><a href="{% url 'login' %}">Log in</a>
+    	   <a href="{% url 'logout' %}">Logout</a>
+    	</p>
+
+	    <form action="" method="post">	
+	    	{% csrf_token %}
+	        {{ form.as_p }}
+	        <input type="submit" value="Search">
+	    </form>
+
+	    {% if info %}
+	    	<p>You searched by {{ info }}: <strong>{{ query }}</strong></p>	
+			{% if books %}
+			    <p>Found {{ books|length }} book{{ books|pluralize }}.</p>
+			    <ul>
+			        {% for book in books %}
+			        <li><a href="{% url 'detail' book.pk %}">{{ book.title }}</a></li>
+			        {% endfor %}
+			    </ul>
+			{% else %}
+			    <p>No books matched your search criteria.</p>
+			{% endif %}
+		{% endif %}
+    {% endblock %}
